@@ -25,9 +25,7 @@ public class UniversityAppApplication {
 
     @Bean
     public CommandLineRunner startup() {
-        return args -> {
-            executeBusinessLogic();
-        };
+        return args -> executeBusinessLogic();
     }
 
     private void executeBusinessLogic() {

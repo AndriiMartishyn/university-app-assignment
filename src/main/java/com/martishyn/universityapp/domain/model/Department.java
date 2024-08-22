@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name  = "departments")
@@ -21,9 +23,10 @@ public class Department {
     private String name;
 
     @OneToOne
+    @JoinColumn(name = "department_head_id")
     private Employee departmentHead;
 
-    @OneToMany(mappedBy = "department")
-    private List<Employee> employees = new ArrayList<>();
+    @ManyToMany(mappedBy = "departments")
+    private Set<Employee> employees = new HashSet<>();
 
 }

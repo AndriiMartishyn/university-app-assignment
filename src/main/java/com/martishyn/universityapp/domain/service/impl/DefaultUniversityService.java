@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,14 +29,14 @@ public class DefaultUniversityService implements UniversityService {
         Department foundDepartment = departmentRepository.findDepartmentByNameEqualsIgnoreCase(departmentName)
                 .orElseThrow(() -> new EntityNotFoundException("No department found with such name: " + departmentName));
         Employee departmentHead = foundDepartment.getDepartmentHead();
-        return departmentHead.getFirstName() + " " + departmentHead.getLastName();
+        return departmentHead.getFirstName() + " " + departmentHead.getLastName() + System.lineSeparator();
     }
 
     @Override
     public String getEmployeeStatistics(String departmentName) {
         Department foundDepartment = departmentRepository.findDepartmentByNameEqualsIgnoreCase(departmentName)
                 .orElseThrow(() -> new EntityNotFoundException("No department found with such name: " + departmentName));
-        List<Employee> employees = foundDepartment.getEmployees();
+        Set<Employee> employees = foundDepartment.getEmployees();
         Map<String, Long> degreeToNumberMap = employees.stream()
                 .map(Employee::getDegree)
                 .collect(Collectors.groupingBy(

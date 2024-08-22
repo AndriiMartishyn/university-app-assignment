@@ -14,8 +14,8 @@ public class ConsoleProcessingService {
     private final UniversityService universityService;
 
     public void printDepartmentHead(String departmentName, String userInput) {
-        String department = departmentName.substring(userInput.length());
-        String departmentHead = universityService.getDepartmentHead(departmentName);
+        String department = departmentName.substring(userInput.length()).trim();
+        String departmentHead = universityService.getDepartmentHead(department);
         System.out.printf(DEPARTMENT_HEAD_OUTPUT, department, departmentHead);
     }
 

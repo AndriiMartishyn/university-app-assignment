@@ -1,15 +1,16 @@
 package com.martishyn.universityapp.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "lectors")
+@Table(name = "employees")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -24,10 +25,14 @@ public class Employee {
 
     private BigDecimal salary;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
     @Enumerated(EnumType.STRING)
     private Degree degree;
+
+    @ManyToMany
+    @JoinTable(
+            name = "employees_departments",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id")
+    )
+    private Set<Department> departments = new HashSet<>();
 }

@@ -1,9 +1,6 @@
 package com.martishyn.universityapp.domain.service;
 
-import com.martishyn.universityapp.domain.model.Employee;
-
 import java.math.BigDecimal;
-import java.util.List;
 
 public interface UniversityService {
 
