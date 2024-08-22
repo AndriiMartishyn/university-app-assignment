@@ -1,0 +1,79 @@
+package com.martishyn.universityapp.domain.service.impl;
+
+import com.martishyn.universityapp.domain.model.Department;
+import com.martishyn.universityapp.domain.model.Employee;
+import com.martishyn.universityapp.domain.repository.DepartmentRepository;
+import com.martishyn.universityapp.domain.repository.EmployeeRepository;
+import com.martishyn.universityapp.domain.service.UniversityService;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class DefaultUniversityService implements UniversityService {
+
+    private final DepartmentRepository departmentRepository;
+    private final EmployeeRepository employeeRepository;
+
+    @Override
+    public String getDepartmentHead(String departmentName) {
+        Department foundDepartment = departmentRepository.findDepartmentByNameEqualsIgnoreCase(departmentName)
+                .orElseThrow(() -> new EntityNotFoundException("No department found with such name: " + departmentName));
+        Employee departmentHead = foundDepartment.getDepartmentHead();
+        return departmentHead.getFirstName() + " " + departmentHead.getLastName();
+    }
+
+    @Override
+    public String getEmployeeStatistics(String departmentName) {
+        Department foundDepartment = departmentRepository.findDepartmentByNameEqualsIgnoreCase(departmentName)
+                .orElseThrow(() -> new EntityNotFoundException("No department found with such name: " + departmentName));
+        List<Employee> employees = foundDepartment.getEmployees();
+        Map<String, Long> degreeToNumberMap = employees.stream()
+                .map(Employee::getDegree)
+                .collect(Collectors.groupingBy(
+                        degree -> degree.toString().toLowerCase(),
+                        Collectors.counting()
+                ));
+        StringBuilder statisticsResult = new StringBuilder();
+        degreeToNumberMap.forEach((key, value) -> {
+            statisticsResult.append(key);
+            statisticsResult.append("s");
+            statisticsResult.append(" - ");
+            statisticsResult.append(value);
+            statisticsResult.append(System.lineSeparator());
+        });
+        return statisticsResult.toString();
+    }
+
+    @Override
+    public BigDecimal getAverageSalaryForDepartment(String departmentName) {
+        return departmentRepository.findAverageSalaryInDepartment(departmentName)
+                .orElseThrow(() -> new EntityNotFoundException("No department found with such name: " + departmentName));
+    }
+
+    @Override
+    public int getEmployeeNumberForDepartment(String departmentName) {
+        return departmentRepository.countEmployeesForDepartment(departmentName);
+    }
+
+    @Override
+    public String searchForEmployee(String searchPattern) {
+        List<Employee> foundEmployees = employeeRepository.findEmployeesByFirstNameOrLastName(searchPattern);
+        StringBuilder globalSearchResult = new StringBuilder();
+        foundEmployees
+                .forEach(employee -> {
+                    globalSearchResult.append(employee.getFirstName());
+                    globalSearchResult.append(employee.getLastName());
+                    globalSearchResult.append(", ");
+                });
+        return globalSearchResult.substring(0, globalSearchResult.length() - 1);
+    }
+}

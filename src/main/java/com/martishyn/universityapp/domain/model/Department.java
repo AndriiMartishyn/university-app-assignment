@@ -1,12 +1,19 @@
-package com.martishyn.universityapp.domain;
+package com.martishyn.universityapp.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name  = "departments")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +21,9 @@ public class Department {
     private String name;
 
     @OneToOne
-    private Lector departmentHead;
+    private Employee departmentHead;
 
     @OneToMany(mappedBy = "department")
-    private List<Lector> lectors = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
 
 }
