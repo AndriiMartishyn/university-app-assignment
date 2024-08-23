@@ -45,11 +45,13 @@ public class UniversityServiceTest {
     static void setUp() {
         department = new Department();
         testEmployee_1 = new Employee();
+        testEmployee_1.setId(1L);
         testEmployee_1.setFirstName("x");
         testEmployee_1.setLastName("y");
         testEmployee_1.setDegree(Degree.ASSISTANT);
         testEmployee_1.setSalary(BigDecimal.valueOf(300));
         testEmployee_2 = new Employee();
+        testEmployee_2.setId(2L);
         testEmployee_2.setFirstName("a");
         testEmployee_2.setLastName("b");
         testEmployee_2.setDegree(Degree.ASSISTANT);
@@ -117,10 +119,10 @@ public class UniversityServiceTest {
     @DisplayName("should_return_employees_based_on_search_template")
     @Test
     void shouldReturnEmployeesBasedOnSearchTemplate() {
-        when(employeeRepository.findEmployeesByFirstNameOrLastName(anyString())).thenReturn(employees);
+        when(employeeRepository.findEmployeesByFirstNameOrLastName("xa")).thenReturn(employees);
         String expectedSearchResult = "x y, a b";
 
-        String actualSearchResult = universityService.searchForEmployee(anyString());
+        String actualSearchResult = universityService.searchForEmployee("xa");
 
         Assertions.assertEquals(expectedSearchResult, actualSearchResult);
     }

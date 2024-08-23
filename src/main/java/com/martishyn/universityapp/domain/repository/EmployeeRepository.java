@@ -8,8 +8,8 @@ import java.util.Set;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Query("select e from Employee e where (e.firstName=:template or " +
-            "e.lastName=:template)")
+    @Query("select e from Employee e where (e.firstName LIKE %:template% or " +
+            "e.lastName LIKE %:template%)")
     Set<Employee> findEmployeesByFirstNameOrLastName(String template);
 
 }
