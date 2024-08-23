@@ -1,4 +1,4 @@
-package com.martishyn.universityapp.service;
+package com.martishyn.universityapp.domain.service;
 
 import com.martishyn.universityapp.domain.service.ConsoleProcessingService;
 import com.martishyn.universityapp.domain.service.UniversityService;
