@@ -61,20 +61,21 @@ public class DefaultUniversityService implements UniversityService {
     }
 
     @Override
-    public int getEmployeeNumberForDepartment(String departmentName) {
+    public int getEmployeeCountInDepartment(String departmentName) {
         return departmentRepository.countEmployeesForDepartment(departmentName);
     }
 
     @Override
     public String searchForEmployee(String searchPattern) {
-        List<Employee> foundEmployees = employeeRepository.findEmployeesByFirstNameOrLastName(searchPattern);
+        Set<Employee> foundEmployees = employeeRepository.findEmployeesByFirstNameOrLastName(searchPattern);
         StringBuilder globalSearchResult = new StringBuilder();
         foundEmployees
                 .forEach(employee -> {
                     globalSearchResult.append(employee.getFirstName());
+                    globalSearchResult.append(" ");
                     globalSearchResult.append(employee.getLastName());
                     globalSearchResult.append(", ");
                 });
-        return globalSearchResult.substring(0, globalSearchResult.length() - 1);
+        return globalSearchResult.substring(0, globalSearchResult.length() - 2);
     }
 }

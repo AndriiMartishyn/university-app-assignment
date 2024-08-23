@@ -11,7 +11,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     Optional<Department> findDepartmentByNameEqualsIgnoreCase(String departmentName);
 
-    @Query("select avg(e.salary) from Department d join Employee e WHERE d.name = :departmentName")
+    @Query("select avg(e.salary) from Employee e join Department d WHERE d.name = :departmentName")
     Optional<BigDecimal> findAverageSalaryInDepartment(String departmentName);
 
     @Query("select count(d.employees) from Department d WHERE d.name= :departmentName")

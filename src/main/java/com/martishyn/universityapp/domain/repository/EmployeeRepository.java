@@ -4,14 +4,12 @@ import com.martishyn.universityapp.domain.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import java.util.Set;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select e from Employee e where (e.firstName=:template or " +
             "e.lastName=:template)")
-    List<Employee> findEmployeesByFirstNameOrLastName(String template);
+    Set<Employee> findEmployeesByFirstNameOrLastName(String template);
 
-//    @Query(nativeQuery = true, value = "SELECT * FROM articles WHERE stage = :#{#stage?.name()}")
-//    List<Article> getByStage(@Param("stage") ArticleStage stage);
 }

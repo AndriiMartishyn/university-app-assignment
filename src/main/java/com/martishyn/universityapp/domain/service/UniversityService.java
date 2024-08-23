@@ -10,7 +10,7 @@ public interface UniversityService {
 
     BigDecimal getAverageSalaryForDepartment(String departmentName);
 
-    int getEmployeeNumberForDepartment(String departmentName);
+    int getEmployeeCountInDepartment(String departmentName);
 
     String searchForEmployee(String searchPattern);
 }

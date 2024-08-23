@@ -13,9 +13,9 @@ public class ConsoleProcessingService {
     private static final String AVERAGE_SALARY_OUTPUT = "The average salary of %s is %s";
     private final UniversityService universityService;
 
-    public void printDepartmentHead(String departmentName, String userInput) {
-        String department = departmentName.substring(userInput.length()).trim();
-        String departmentHead = universityService.getDepartmentHead(department);
+    public void printDepartmentHead(String userInput, String sentence) {
+        String department = userInput.substring(sentence.length());
+        String departmentHead = universityService.getDepartmentHead(department.trim());
         System.out.printf(DEPARTMENT_HEAD_OUTPUT, department, departmentHead);
     }
 
@@ -29,13 +29,14 @@ public class ConsoleProcessingService {
         System.out.printf(AVERAGE_SALARY_OUTPUT, departmentName, averageSalaryForDepartment);
     }
 
-    public void printNumberOfLectors(String departmentName) {
-        int employeeNumberForDepartment = universityService.getEmployeeNumberForDepartment(departmentName);
-        System.out.println(employeeNumberForDepartment);
+    public void printNumberOfEmployees(String departmentName) {
+        int employeeCountInDepartment = universityService.getEmployeeCountInDepartment(departmentName);
+        System.out.println(employeeCountInDepartment);
     }
 
-    public void printGlobalSearchResult(String departmentName) {
-        String searchResult = universityService.searchForEmployee(departmentName);
+    public void printGlobalSearchResult(String userInput, String sentence) {
+        String template = userInput.substring(sentence.length());
+        String searchResult = universityService.searchForEmployee(template.trim());
         System.out.println(searchResult);
     }
 }
