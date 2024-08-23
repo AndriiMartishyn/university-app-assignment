@@ -86,15 +86,8 @@ public class ConsoleProcessingServiceTest {
     void printGlobalSearchResult_WhenPassingCorrectInput_ShouldPrintSearchResult(CapturedOutput capturedOutput) {
         when(universityService.searchForEmployee("xy")).thenReturn(DEPARTMENT_HEAD);
 
-        consoleProcessingService.printGlobalSearchResult(GLOBAL_SEARCH_USER_INPUT, GLOBAL_SEARCH_PATTERN );
+        consoleProcessingService.printGlobalSearchResult(GLOBAL_SEARCH_USER_INPUT, GLOBAL_SEARCH_PATTERN);
 
         Assertions.assertTrue(capturedOutput.toString().contains(DEPARTMENT_HEAD));
     }
-
-
-
-
-
-
-
 }

@@ -66,7 +66,7 @@ public class UniversityServiceTest {
     @Test
     void shouldReturnDepartmentHeadNameWhenPassingCorrectData() {
         when(departmentRepository.findDepartmentByNameEqualsIgnoreCase(DEPARTMENT_NAME)).thenReturn(Optional.ofNullable(department));
-        String expectedDepartmentHeadName = testEmployee_1.getFirstName() + " " + testEmployee_1.getLastName();
+        String expectedDepartmentHeadName = testEmployee_1.getFirstName() + " " + testEmployee_1.getLastName() + System.lineSeparator();
 
         String actualDepartmentHeadName = universityService.getDepartmentHead(DEPARTMENT_NAME);
 
@@ -126,6 +126,4 @@ public class UniversityServiceTest {
 
         Assertions.assertEquals(expectedSearchResult, actualSearchResult);
     }
-
-
 }

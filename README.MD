@@ -39,13 +39,19 @@ Answer: Ivan Petrenko, Petro Ivanov
 
 ### Setting up Dev
 
-First you need to pull the latest code. Then run maven commands in order to build jar archive. 
-After that it is possible to run executable jar file with assignment.
+First you need to pull the latest code. 
 
 ```shell
 git clone https://github.com/AndriiMartishyn/university-app-assignment.git
-cd assignment-task-rest/
-mvn clean install
-java -jar target/university-app-0.0.1-SNAPSHOT.jar
-
+cd university-app-assignment/
 ```
+Then you will need to open IDE and use following command order to build jar archive.
+```shell
+mvn clean install
+```
+
+After that it is possible to run executable jar file with assignment.
+```shell
+java -jar target/university-app-0.0.1-SNAPSHOT.jar
+```
+
