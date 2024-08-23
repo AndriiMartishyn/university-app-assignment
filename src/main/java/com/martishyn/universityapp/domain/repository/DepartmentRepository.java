@@ -11,10 +11,10 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     Optional<Department> findDepartmentByNameEqualsIgnoreCase(String departmentName);
 
-    @Query("select avg(e.salary) from Employee e join e.departments d WHERE d.name = :departmentName")
+    @Query("SELECT avg(e.salary) FROM Employee e JOIN e.departments d WHERE d.name = :departmentName")
     Optional<BigDecimal> findAverageSalaryInDepartment(String departmentName);
 
-    @Query("select count(d) from Department d join d.employees WHERE d.name= :departmentName")
+    @Query("SELECT count(d) FROM Department d JOIN d.employees WHERE d.name= :departmentName")
     Integer countEmployeesForDepartment(String departmentName);
 
 }

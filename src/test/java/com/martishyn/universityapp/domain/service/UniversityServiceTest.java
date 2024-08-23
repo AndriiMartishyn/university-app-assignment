@@ -17,13 +17,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -119,10 +117,10 @@ public class UniversityServiceTest {
     @DisplayName("should_return_employees_based_on_search_template")
     @Test
     void shouldReturnEmployeesBasedOnSearchTemplate() {
-        when(employeeRepository.findEmployeesByFirstNameOrLastName("xa")).thenReturn(employees);
-        String expectedSearchResult = "x y, a b";
+        when(employeeRepository.findEmployeesByFirstNameOrLastName("ma")).thenReturn(Collections.singletonList("Maria, Marta"));
+        String expectedSearchResult = "Maria, Marta";
 
-        String actualSearchResult = universityService.searchForEmployee("xa");
+        String actualSearchResult = universityService.searchForEmployee("ma");
 
         Assertions.assertEquals(expectedSearchResult, actualSearchResult);
     }

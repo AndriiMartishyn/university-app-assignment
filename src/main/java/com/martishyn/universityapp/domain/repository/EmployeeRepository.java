@@ -4,12 +4,12 @@ import com.martishyn.universityapp.domain.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Set;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Query("select e from Employee e where (e.firstName LIKE %:template% or " +
-            "e.lastName LIKE %:template%)")
-    Set<Employee> findEmployeesByFirstNameOrLastName(String template);
+    @Query("SELECT CONCAT(e.firstName, ' ', e.lastName) FROM Employee e WHERE LOWER(CONCAT(e.firstName, ' ', e.lastName)) LIKE LOWER(CONCAT('%', :template, '%')) ")
+    List<String> findEmployeesByFirstNameOrLastName(String template);
 
 }
